@@ -57,7 +57,6 @@ async function init(): Promise<void> {
   );
 
   app.use(serve(rootResolve('dist')));
-  app.use(serve(rootResolve('public')));
 
   app.use(async (ctx) => await send(ctx, rootResolve('/dist/index.html')));
 

@@ -1,6 +1,7 @@
 export const loadThumbnail = async (url: string) => {
   const video = document.createElement('video');
 
+  console.log('start');
   await new Promise((resolve) => {
     video.src = url;
     video.addEventListener('canplaythrough', resolve, { once: true });
@@ -19,5 +20,7 @@ export const loadThumbnail = async (url: string) => {
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
   const thumbnailData = canvas.toDataURL('image/png');
+
+  console.log('end');
   return thumbnailData;
 };
