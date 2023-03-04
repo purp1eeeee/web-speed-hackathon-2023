@@ -4,11 +4,14 @@ export function getActiveOffer(
   offers: LimitedTimeOfferFragmentResponse[],
 ): LimitedTimeOfferFragmentResponse | undefined {
   const activeOffer = offers.find((offer) => {
-    const now = window.Temporal.Now.instant();
-    const startDate = window.Temporal.Instant.from(offer.startDate);
-    const endDate = window.Temporal.Instant.from(offer.endDate);
+    const now = new Date();
+    const startDate = new Date(offer.startDate);
+    const endDate = new Date(offer.endDate);
 
-    return window.Temporal.Instant.compare(startDate, now) < 0 && window.Temporal.Instant.compare(now, endDate) < 0;
+    const isAfter = startDate.getTime() < now.getTime();
+    const isBefore = now.getTime() < endDate.getTime();
+
+    return isAfter && isBefore;
   });
 
   return activeOffer;

@@ -1,5 +1,4 @@
 import * as currencyFormatter from 'currency-formatter';
-import _ from 'lodash';
 import type { FC } from 'react';
 import { memo } from 'react';
 
@@ -23,14 +22,14 @@ export const ProductOverview: FC<Props> = memo(({ activeOffer, product }) => {
       return;
     }
 
-    const endTime = window.Temporal.Instant.from(activeOffer.endDate).toLocaleString('ja-jp', {
+    const endTime = Intl.DateTimeFormat('ja-jp', {
       day: '2-digit',
       hour: '2-digit',
       minute: '2-digit',
       month: '2-digit',
       second: '2-digit',
       year: 'numeric',
-    });
+    }).format(new Date(activeOffer.endDate));
 
     return (
       <div className={styles.offerLabel()}>
@@ -59,6 +58,6 @@ export const ProductOverview: FC<Props> = memo(({ activeOffer, product }) => {
       </div>
     </div>
   );
-}, _.isEqual);
+});
 
 ProductOverview.displayName = 'ProductOverview';

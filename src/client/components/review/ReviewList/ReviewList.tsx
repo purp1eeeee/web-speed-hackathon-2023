@@ -18,14 +18,14 @@ export const ReviewList: FC<Props> = ({ reviews }) => {
   return (
     <ul className={styles.itemList()}>
       {reviews.map((review) => {
-        const endTime = window.Temporal.Instant.from(review.postedAt).toLocaleString('ja-jp', {
+        const endTime = Intl.DateTimeFormat('ja-jp', {
           day: '2-digit',
           hour: '2-digit',
           minute: '2-digit',
           month: '2-digit',
           second: '2-digit',
           year: 'numeric',
-        });
+        }).format(new Date(review.postedAt));
 
         return (
           <li key={review.id} className={styles.item()} data-testid="review-list-item">
