@@ -6,6 +6,7 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import logger from 'koa-logger';
 import route from 'koa-route';
+import compress from 'koa-compress';
 import send from 'koa-send';
 import session from 'koa-session';
 import serve from 'koa-static';
@@ -34,6 +35,8 @@ async function init(): Promise<void> {
     ctx.set('Cache-Control', 'no-store');
     await next();
   });
+
+  app.use(compress());
 
   const apolloServer = await initializeApolloServer();
   await apolloServer.start();
